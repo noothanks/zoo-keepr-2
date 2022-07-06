@@ -2,12 +2,13 @@ const express = require('express');
 
 //requiring animal JSON data
 const {animals} = require('./data/animals.json');
-
+//setting up port variable
+const PORT = process.env.PORT || 3001;
 //instantiate server
 const app = express();
 //make server listen for connections at port (destination) 3001 on the host (address)
-app.listen(3001, () => {
-    console.log(`API server now on port 3001!`);
+app.listen(PORT, () => {
+    console.log(`API server now on port ${PORT}!`);
 });
 
 //setting up filter functionality
