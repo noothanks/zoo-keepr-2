@@ -14,11 +14,8 @@ const app = express();
 app.use(express.urlencoded({extend: true}));
 //parse incoming JSON data
 app.use(express.json());
-
-//make server listen for connections at port (destination) 3001 on the host (address)
-app.listen(PORT, () => {
-    console.log(`API server now on port ${PORT}!`);
-});
+//set static files to browser
+app.use(express.static('public'));
 
 //setting up filter functionality
 function filterByQuery(query, animalsArray) {
@@ -141,6 +138,27 @@ app.get('/api/animals/:id', (req, res) => {
     }
 });
 
+//get request for index.html
+app.get('/', (req, res) => {
+    //retrieves file (res.sendFile()) from chosen location (path.join(currentDirectory, chosen file path))
+    res.sendFile(path.join(__dirname, './public/index.html'));
+});
+
+//get animals page
+app.get('/animals', (req, res) => {
+    res.sendFile(path.join(__dirname, './public/animals.html'));
+  });
+
+//get zookeepers page
+app.get('/zookeepers', (req, res) => {
+    res.sendFile(path.join(__dirname, './public/zookeeprs.html'));
+});
+
+//wildcard route
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, './public/index.html'));
+});
+
 //setting up client request for the server to accept data
 app.post('/api/animals', (req, res) => {
     //set new animal id to the next index of the array based on array length
@@ -158,4 +176,9 @@ app.post('/api/animals', (req, res) => {
         //req.body is where incoming content will be populated
         res.json(req.body);
     }
+});
+
+//make server listen for connections at port (destination) 3001 on the host (address)
+app.listen(PORT, () => {
+    console.log(`API server now on port ${PORT}!`);
 });
