@@ -49,6 +49,15 @@ function filterByQuery(query, animalsArray) {
     return filteredResults;
 }
 
+//adding findById() functionality
+function findById(id, animalsArray) {
+    // take animalsArray and filter the items to match the selected id
+    //update array for filtered animal
+    //save result as index 0 of updated array
+    const result = animalsArray.filter(animal => animal.id === id)[0]
+    return result;
+}
+
 //adding route to access animals.json data
 //get() method looks for string describing client fetch route
 //get() methods looks for callback to execute on request
@@ -65,3 +74,18 @@ app.get('/api/animals', (req, res) => {
     //res.send('hello');
     res.json(results); 
 });
+
+//get() for a single animal by id
+//use re1.params.propertyName for retriving item with single property
+// ex. can replace /:id below with /:insertPropertyHere
+//separated because id is unique to each individual animal
+//other query code is not useful here, so a new request is defined
+app.get('/api/animals/:id', (req, res) => {
+    const result = findById(req.params.id, animals);
+    //checking for 404 error
+    if(result){
+        res.json(result);
+    } else {
+        res.send(404);
+    }
+})
