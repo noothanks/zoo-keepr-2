@@ -153,6 +153,13 @@
         "anxious"
       ],
       "id": "15"
+    },
+    {
+      "name": "Doug",
+      "species": "Alligator",
+      "diet": "herbivore",
+      "personalityTraits": [],
+      "id": "16"
     }
   ]
 }
